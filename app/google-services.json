@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "601618126619",
+    "firebase_url": "https://finalyearproject-1bce3.firebaseio.com",
+    "project_id": "finalyearproject-1bce3",
+    "storage_bucket": "finalyearproject-1bce3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601618126619:android:0d8a7a0bdb0dab7f",
+        "android_client_info": {
+          "package_name": "my.edu.tarc.user.fyp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "601618126619-490ta9givqb09vthcine8rtgdur4hk88.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCSrPdY0nnXcP_BKYk2RJmlJyeS7Ijqn4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "601618126619-490ta9givqb09vthcine8rtgdur4hk88.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
