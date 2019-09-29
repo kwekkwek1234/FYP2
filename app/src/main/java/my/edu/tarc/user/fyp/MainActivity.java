@@ -2,16 +2,16 @@ package my.edu.tarc.user.fyp;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity implements
         BottomNavigationView.OnNavigationItemSelectedListener,
         HomeFragment.OnFragmentInteractionListener,
-        CartFragment.OnFragmentInteractionListener {
+        CartFragment.OnFragmentInteractionListener, ProductListFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements
 
         switch (item.getItemId()) {
             case R.id.nav_search:
-
+                fragment = new ProductListFragment();
                 break;
 
             case R.id.nav_bookmark:
