@@ -9,30 +9,64 @@
         android:id="@+id/rL"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        >
+        android:layout_alignParentTop="true">
 
         <TextView
+            android:id="@+id/cartTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="CART"
             android:textAlignment="center"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
+
+
     </RelativeLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cart_list"
+    <RelativeLayout
+        android:id="@+id/relative_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/rL"
-        />
+        android:layout_height="410sp"
+        android:layout_below="@+id/rL">
 
-    <Button
-        android:id="@+id/checkout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cart_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="CHECKOUT"
-        />
+        android:layout_below="@+id/relative_recycler"
+        android:layout_marginBottom="60sp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/checkout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="CHECKOUT" />
+
+            <TextView
+                android:textSize="18sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subtotal: " />
+            <TextView
+                android:id="@+id/subtotal"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="false"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RM0.00"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
 </RelativeLayout>

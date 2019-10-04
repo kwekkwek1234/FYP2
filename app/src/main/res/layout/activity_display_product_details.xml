@@ -40,6 +40,16 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:id="@+id/btnAugmented"
+        android:text="Try It On"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddCart"/>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:id="@+id/btnAddCart"
         android:text="Add to Cart"
         app:layout_constraintLeft_toLeftOf="parent"

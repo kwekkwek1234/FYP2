@@ -3,17 +3,17 @@ package my.edu.tarc.user.fyp.Model;
 public class Cart {
     private String productId;
     private String productName;
-    private int productAmount;
-    private double itemsPrice;
+    private String productQuantity;
+    private String itemsPrice;
 
 
     public Cart() {
     }
 
-    public Cart(String productId, String productName, int productAmount, double itemsPrice) {
+    public Cart(String productId, String productName, String productQuantity, String itemsPrice) {
         this.productId = productId;
         this.productName = productName;
-        this.productAmount = productAmount;
+        this.productQuantity = productQuantity;
         this.itemsPrice = itemsPrice;
     }
 
@@ -33,19 +33,19 @@ public class Cart {
         this.productName = productName;
     }
 
-    public int getProductAmount() {
-        return productAmount;
+    public String getProductQuantity() {
+        return productQuantity;
     }
 
-    public void setProductAmount(int productAmount) {
-        this.productAmount = productAmount;
+    public void setProductQuantity(String productQuantity) {
+        this.productQuantity = productQuantity;
     }
 
-    public double getItemsPrice() {
+    public String getItemsPrice() {
         return itemsPrice;
     }
 
-    public void setItemsPrice(double itemsPrice) {
+    public void setItemsPrice(String itemsPrice) {
         this.itemsPrice = itemsPrice;
     }
 }

@@ -132,8 +132,7 @@ public class HomeFragment extends Fragment{
                 Picasso.get().load(product.getProductImageUrl()).into(productViewHolder.productImageUrl);
 
                 productViewHolder.productName.setText(product.getProductName());
-                productViewHolder.productPrice.setText(product.getProductPrice());
-
+                productViewHolder.productPrice.setText(getString(R.string.currency, Double.parseDouble(product.getProductPrice())));
                 productViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

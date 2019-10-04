@@ -12,21 +12,19 @@ import my.edu.tarc.user.fyp.R;
 
 public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-    public TextView productName, productPrice;
-    public ImageView productImageUrl;
+    public TextView productName, productPrice, productQuantity;
     public ItemClickListener listener;
 
     public CartViewHolder(@NonNull View itemView) {
         super(itemView);
-        productImageUrl = itemView.findViewById(R.id.productImageUrl);
         productName = itemView.findViewById(R.id.productName);
         productPrice = itemView.findViewById(R.id.productPrice);
+        productQuantity = itemView.findViewById(R.id.productQuantity);
     }
 
     public void setItemClickListener(ItemClickListener listener){
         this.listener = listener;
     }
-
 
     @Override
     public void onClick(View v) {
