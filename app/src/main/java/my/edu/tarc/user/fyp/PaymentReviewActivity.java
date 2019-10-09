@@ -4,13 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,19 +15,16 @@ import com.google.firebase.database.ValueEventListener;
 
 public class PaymentReviewActivity extends AppCompatActivity {
 
-    private TextView txtSubtotal;
-    private Button proceed_order;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_review);
 
         double subtotal = getIntent().getDoubleExtra("subtotal", 0.00);
-        txtSubtotal = findViewById(R.id.subtotal);
+        TextView txtSubtotal = findViewById(R.id.subtotal);
         txtSubtotal.setText(getString(R.string.currency, subtotal));
 
-        proceed_order = findViewById(R.id.proceed_order);
+        Button proceed_order = findViewById(R.id.proceed_order);
         proceed_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
