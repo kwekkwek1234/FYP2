@@ -1,42 +1,145 @@
 {
   "project_info": {
-    "project_number": "380731325704",
-    "firebase_url": "https://smartdresser-c1eee.firebaseio.com",
-    "project_id": "smartdresser-c1eee",
-    "storage_bucket": "smartdresser-c1eee.appspot.com"
+    "project_number": "137413257139",
+    "firebase_url": "https://myfyp-ac582.firebaseio.com",
+    "project_id": "myfyp-ac582",
+    "storage_bucket": "myfyp-ac582.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:380731325704:android:cb3ed3f08eec576d2c40bd",
+        "mobilesdk_app_id": "1:137413257139:android:7a32e0d0b174933fc28dc6",
         "android_client_info": {
           "package_name": "my.edu.tarc.user.fyp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "380731325704-bftu7qggdt4ci40cs5utorutvfo9dr8k.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "my.edu.tarc.user.fyp",
-            "certificate_hash": "3de0949df14e43d72ff636f91a04ec4dec2a85f7"
-          }
-        },
-        {
-          "client_id": "380731325704-87s1eom327md7741h24pifkh76c94sfd.apps.googleusercontent.com",
+          "client_id": "137413257139-jrtkjm9kkg13agbjecoa3chqsndosq3k.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBxgK5DDu62zS7RS4DBH9Eec1nfspn3Fbg"
+          "current_key": "AIzaSyDwfN7qOaZKtMb319xhgaBpYq5W18Pe36w"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "380731325704-87s1eom327md7741h24pifkh76c94sfd.apps.googleusercontent.com",
+              "client_id": "137413257139-jrtkjm9kkg13agbjecoa3chqsndosq3k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137413257139:android:f671c595d3655eb3c28dc6",
+        "android_client_info": {
+          "package_name": "my.edu.tarc.user.myadminfyp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137413257139-udk9o42tm06dnftsb0tj903i8pefll27.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "my.edu.tarc.user.myadminfyp",
+            "certificate_hash": "36649b0b6559f6372825f346795dd08bc6dd6a50"
+          }
+        },
+        {
+          "client_id": "137413257139-jrtkjm9kkg13agbjecoa3chqsndosq3k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwfN7qOaZKtMb319xhgaBpYq5W18Pe36w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137413257139-jrtkjm9kkg13agbjecoa3chqsndosq3k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137413257139:android:752fb12e86e1afa1c28dc6",
+        "android_client_info": {
+          "package_name": "my.edu.tarc.user.smartdresser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137413257139-jajv50lcg77q431i5koek3bfc723d7qs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "my.edu.tarc.user.smartdresser",
+            "certificate_hash": "3de0949df14e43d72ff636f91a04ec4dec2a85f7"
+          }
+        },
+        {
+          "client_id": "137413257139-jrtkjm9kkg13agbjecoa3chqsndosq3k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwfN7qOaZKtMb319xhgaBpYq5W18Pe36w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137413257139-jrtkjm9kkg13agbjecoa3chqsndosq3k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137413257139:android:5d2bed42fc93c3c4c28dc6",
+        "android_client_info": {
+          "package_name": "tarc.edu.project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137413257139-gknib5i7ehrej1octtki4k05hk69c9i6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tarc.edu.project",
+            "certificate_hash": "3de0949df14e43d72ff636f91a04ec4dec2a85f7"
+          }
+        },
+        {
+          "client_id": "137413257139-jrtkjm9kkg13agbjecoa3chqsndosq3k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwfN7qOaZKtMb319xhgaBpYq5W18Pe36w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137413257139-jrtkjm9kkg13agbjecoa3chqsndosq3k.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

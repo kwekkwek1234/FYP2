@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="my.edu.tarc.user.fyp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".PaymentReviewActivity" />
         <activity android:name=".DisplayProductDetails" />
         <activity
@@ -26,8 +29,5 @@
             android:name="com.google.ar.core"
             android:value="required" />
     </application>
-
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

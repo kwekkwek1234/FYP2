@@ -11,7 +11,9 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity implements
         BottomNavigationView.OnNavigationItemSelectedListener,
         HomeFragment.OnFragmentInteractionListener,
-        CartFragment.OnFragmentInteractionListener, ProductListFragment.OnFragmentInteractionListener {
+        CartFragment.OnFragmentInteractionListener,
+        ProductListFragment.OnFragmentInteractionListener,
+        LoginFragment.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements
                 break;
 
             case R.id.nav_account:
-
+                fragment = new LoginFragment();
                 break;
             case R.id.nav_cart:
                 fragment = new CartFragment();

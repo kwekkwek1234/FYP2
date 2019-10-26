@@ -11,9 +11,20 @@
     <string name="brands_a_z">BRANDS A-Z</string>
     <string name="view_all">VIEW ALL</string>
     <string name="latest">LATEST</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="currency">RM%1$.2f</string>
-    <!---->
+
+    <!--Login Activity-->
+    <string name="textSignIn">Sign In</string>
+    <string name="buttonSignIn">Sign In</string>
+    <string name="registerTextView">No Account yet? Register here</string>
+    <string name="TextViewSignStaff">Staff? Sign in here</string>
+
+    <!-- Register Activity -->
+    <string name="registerText">User Registration</string>
+    <string name="nameText">Name</string>
+    <string name="emailText">Email</string>
+    <string name="passwordText">Password</string>
+    <string name="cpasswordText">Confirm Password</string>
+    <string name="registerButton">Register</string>
+    <string name="signInText">Already Register? Login here</string>
 </resources>
