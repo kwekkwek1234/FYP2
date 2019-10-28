@@ -1,15 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Test"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageViewProfilePic"
+                android:layout_width="154dp"
+                android:layout_height="115dp"
+                android:src="@drawable/default_profile_pic" />
+
+            <TextView
+                android:id="@+id/Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nameText"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_below="@+id/pic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/btnSetUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/setUserPreferenceText"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/btnEWallet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ewalletText"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/btnTrackShipping"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/trackShippingText"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/btnSetAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/setAddressText"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/btnSignOut"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/signOutText"
+                android:textAllCaps="false"/>
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </FrameLayout>

@@ -57,6 +57,11 @@ public class LoginFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser() != null){
             //profile activity
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            ProfileFragment profileFragment = new ProfileFragment();
+            fragmentTransaction.replace(R.id.fragment_container,profileFragment);
+            fragmentTransaction.commit();
         }
 
         textViewRegister.setOnClickListener(new View.OnClickListener() {
