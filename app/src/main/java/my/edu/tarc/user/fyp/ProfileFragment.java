@@ -1,6 +1,7 @@
 package my.edu.tarc.user.fyp;
 
 
+import android.R.layout;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -12,13 +13,20 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 
 public class ProfileFragment extends Fragment implements  View.OnClickListener{
@@ -27,6 +35,9 @@ public class ProfileFragment extends Fragment implements  View.OnClickListener{
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference ref;
+    String userID;
+
+    private  FirebaseAuth.AuthStateListener authStateListener;
 
 
     private OnFragmentInteractionListener mListener;
@@ -53,6 +64,11 @@ public class ProfileFragment extends Fragment implements  View.OnClickListener{
         btnSetAddress = (Button) view.findViewById(R.id.btnSetAddress);
         btnSignout = (Button) view.findViewById(R.id.btnSignOut);
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        ref = firebaseDatabase.getReference();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        userID = firebaseAuth.getUid();
+
         if(firebaseAuth.getCurrentUser() == null){
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -62,6 +78,21 @@ public class ProfileFragment extends Fragment implements  View.OnClickListener{
 
         }
 
+        if(firebaseAuth.getCurrentUser()!= null){
+
+         //  textViewName.setText("" +user.getDisplayName());
+        }
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                showData(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
         btnSetUP.setOnClickListener(this);
@@ -72,6 +103,16 @@ public class ProfileFragment extends Fragment implements  View.OnClickListener{
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void showData(DataSnapshot dataSnapshot) {
+        for(DataSnapshot ds: dataSnapshot.getChildren()){
+            User users = new User();
+//            users.setName((ds.child(userID).getValue(User.class).getName()));
+            ArrayList<String> array = new ArrayList<>();
+            array.add(users.getName());
+       //     ArrayAdapter adapter = new ArrayAdapter(this, R.layout.,array);
+        }
     }
 
     @Override

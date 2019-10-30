@@ -111,7 +111,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if(!dataSnapshot.child(user.getName()).exists()){
-                                users.child(firebaseUser.getUid().toString()).setValue(user);
+                                users.child(firebaseUser.getUid().toString()).child("Details").setValue(user);
                                 Toast.makeText(RegisterActivity.this, "Successful Register", Toast.LENGTH_SHORT).show();
                             }
                         }

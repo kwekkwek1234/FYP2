@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TopupActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/texttopupamount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textTopupAmount" />
+
+        <EditText
+            android:id="@+id/editMinAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="@string/textMinTopup"/>
+
+        <TextView
+            android:id="@+id/textcardnumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textCardNumber"/>
+
+        <EditText
+            android:id="@+id/editCardNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="Card Number"/>
+
+        <TextView
+            android:id="@+id/textDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textExpiryDate"/>
+
+        <EditText
+            android:id="@+id/editExpiryDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+
+            android:hint="MM/YY"/>
+
+        <TextView
+            android:id="@+id/textcvv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textCVV"/>
+
+        <EditText
+            android:id="@+id/editCVV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="CVV"/>
+
+        <CheckBox
+            android:id="@+id/checkSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textSave"/>
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textSubmit"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

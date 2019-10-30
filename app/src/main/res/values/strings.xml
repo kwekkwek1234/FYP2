@@ -41,4 +41,13 @@
     <string name="topup">Top Up</string>
     <string name="withdraw">Withdraw</string>
     <string name="transactionHistory">Transaction History :</string>
+
+    <!-- Topup Activity -->
+    <string name="textTopupAmount">Topup amount : RM</string>
+    <string name="textCardNumber">Card Number :</string>
+    <string name="textExpiryDate">Expiry Date :</string>
+    <string name="textCVV">CVV</string>
+    <string name="textSave">Save details for future payment</string>
+    <string name="textSubmit">Submit</string>
+    <string name="textMinTopup">Enter at least RM50</string>
 </resources>
