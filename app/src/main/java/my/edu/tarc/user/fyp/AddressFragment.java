@@ -46,7 +46,7 @@ public class AddressFragment extends Fragment {
     private FirebaseUser user;
 
     private RecyclerView address_list;
-
+    private Button btnSetAddress;
 
     public AddressFragment() {
         // Required empty public constructor
@@ -69,10 +69,18 @@ public class AddressFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         address_list = view.findViewById(R.id.addressRecycleView);
+        btnSetAddress = view.findViewById(R.id.btnAddAddress);
         address_list.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         address_list.setLayoutManager(layoutManager);
         loadAddress();
+
+        btnSetAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),SetAddressActivity.class));
+            }
+        });
 
         return view;
     }

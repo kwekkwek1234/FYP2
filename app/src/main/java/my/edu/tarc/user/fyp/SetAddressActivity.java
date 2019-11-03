@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 public class SetAddressActivity extends AppCompatActivity implements View.OnClickListener {
     private Spinner spinnerState;
     private EditText textReceiverName, textPhoneNumber, textAddress, textPostalCode,textArea;
+    private CheckBox cbDefaultAddress;
     private Button btnSubmit;
     FirebaseDatabase database;
     DatabaseReference users;
@@ -47,6 +49,7 @@ public class SetAddressActivity extends AppCompatActivity implements View.OnClic
         textArea = findViewById(R.id.textArea);
         btnSubmit = findViewById(R.id.btnSubmit);
         spinnerState = findViewById(R.id.spinnerState);
+        cbDefaultAddress = findViewById(R.id.checkSave);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(SetAddressActivity.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.stateItem));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerState.setAdapter(adapter);
@@ -74,6 +77,11 @@ public class SetAddressActivity extends AppCompatActivity implements View.OnClic
         String postalCode = textPostalCode.getText().toString().trim();
         String area = textArea.getText().toString().trim();
         String state = spinnerState.getSelectedItem().toString();
+        String defaultAddress = null;
+
+        if(cbDefaultAddress.isChecked()){
+            defaultAddress = "Yes";
+        }
 
         if(TextUtils.isEmpty(receiverName)){
             Toast.makeText(this,"Please enter receiver name",Toast.LENGTH_LONG).show();
@@ -100,7 +108,7 @@ public class SetAddressActivity extends AppCompatActivity implements View.OnClic
             return;
         }
 
-        final Address address1 = new Address(receiverName,phoneNumber,address,postalCode,area,state);
+        final Address address1 = new Address(receiverName,phoneNumber,address,postalCode,area,state,defaultAddress);
         firebaseUser = firebaseAuth.getCurrentUser();
         final DatabaseReference addressRef = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid()).child("Address");
         Query lastAddress = addressRef.orderByKey().limitToLast(1);

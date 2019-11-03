@@ -1,18 +1,21 @@
 package my.edu.tarc.user.fyp;
 
+import com.google.firebase.database.snapshot.BooleanNode;
+
 public class Address {
-    private String receiverName, phoneNo, address,postalCode, area, state;
+    private String receiverName, phoneNo, address,postalCode, area, state,defaultAddress;
 
     public Address() {
     }
 
-    public Address(String receiverName, String phoneNo, String address, String postalCode, String area, String state) {
+    public Address(String receiverName, String phoneNo, String address, String postalCode, String area, String state,String defaultAddress) {
         this.receiverName = receiverName;
         this.phoneNo = phoneNo;
         this.address = address;
         this.postalCode = postalCode;
         this.area = area;
         this.state = state;
+        this.defaultAddress = defaultAddress;
     }
 
     public String getReceiverName() {
@@ -63,15 +66,11 @@ public class Address {
         this.state = state;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Address{" +
-//                "receiverName='" + receiverName + '\'' +
-//                ", phoneNo='" + phoneNo + '\'' +
-//                ", address='" + address + '\'' +
-//                ", postalCode='" + postalCode + '\'' +
-//                ", area='" + area + '\'' +
-//                ", state='" + state + '\'' +
-//                '}';
-//    }
+    public String getDefaultAddress() {
+        return defaultAddress;
+    }
+
+    public void setDefaultAddress(String defaultAddress) {
+        this.defaultAddress = defaultAddress;
+    }
 }
