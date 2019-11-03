@@ -81,6 +81,8 @@ public class SetAddressActivity extends AppCompatActivity implements View.OnClic
 
         if(cbDefaultAddress.isChecked()){
             defaultAddress = "Yes";
+        }else{
+            defaultAddress = "No";
         }
 
         if(TextUtils.isEmpty(receiverName)){
