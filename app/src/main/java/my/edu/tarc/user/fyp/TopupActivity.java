@@ -50,9 +50,11 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
             }
 
             String amount = editMinAmount.getText().toString().trim();
+            String activity = "Topup";
 
-            Intent intent = new Intent(this,Topup2Activity.class);
+            Intent intent = new Intent(this,TransactionConfirmation.class);
             intent.putExtra("amount",amount);
+            intent.putExtra("activity",activity);
             startActivity(intent);
         }
     }

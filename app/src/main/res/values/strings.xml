@@ -51,12 +51,6 @@
     <string name="textSubmit">Submit</string>
     <string name="textMinTopup">Enter at least RM50</string>
 
-    <!-- Topup2 Activity -->
-    <string name="textTransactionNo">Transaction No :</string>
-    <string name="textDateTime">Transaction Date</string>
-    <string name="textDescription">Description</string>
-    <string name="textAmountPayment">Amount</string>
-
     <!-- Delivery Service Activity -->
     <string name="textShipping">Shipping :</string>
 
@@ -76,4 +70,12 @@
     </string-array>
     <string name="textDefaultAddress">Set as Default Address</string>
     <string name="address">Address</string>
+
+    <!-- Transaction Confirmation Activity -->
+    <string name="textTransCon">Transaction Confirmation</string>
+    <string name="textTransID">Transaction ID</string>
+    <string name="textTo">To</string>
+    <string name="textTransDescription">Description</string>
+    <string name="amount">Amount</string>
+    <string name="cancel">Cancel</string>
 </resources>

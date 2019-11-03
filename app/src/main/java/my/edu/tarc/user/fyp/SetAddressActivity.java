@@ -34,6 +34,7 @@ public class SetAddressActivity extends AppCompatActivity implements View.OnClic
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
 
+
     public SetAddressActivity() {
     }
 
