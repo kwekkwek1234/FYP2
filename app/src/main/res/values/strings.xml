@@ -32,7 +32,7 @@
     <string name="setUserPreferenceText">Set User Preference</string>
     <string name="ewalletText">E-wallet</string>
     <string name="trackShippingText">Track your shipping</string>
-    <string name="setAddressText">Set Address</string>
+    <string name="setAddressText">Manage Address</string>
     <string name="signOutText">Sign Out</string>
 
     <!-- E-wallet Activity -->
@@ -50,4 +50,30 @@
     <string name="textSave">Save details for future payment</string>
     <string name="textSubmit">Submit</string>
     <string name="textMinTopup">Enter at least RM50</string>
+
+    <!-- Topup2 Activity -->
+    <string name="textTransactionNo">Transaction No :</string>
+    <string name="textDateTime">Transaction Date</string>
+    <string name="textDescription">Description</string>
+    <string name="textAmountPayment">Amount</string>
+
+    <!-- Delivery Service Activity -->
+    <string name="textShipping">Shipping :</string>
+
+    <!-- Address Activity -->
+    <string name="textAddAddress">Add Address</string>
+
+    <!-- Set Address Activity -->
+    <string name="textReceiverName">Receiver Name</string>
+    <string name="textPhoneNumber">Phone Number</string>
+    <string name="textAddress">Unit, Building, Street and etc</string>
+    <string name="textPostalCode">Postal Code</string>
+    <string name="textArea">Area</string>
+    <string-array name="stateItem">
+        <item>Selangor</item>
+        <item>Putrajaya</item>
+        <item>Kuala Lumpur</item>
+    </string-array>
+    <string name="textDefaultAddress">Set as Default Address</string>
+    <string name="address">Address</string>
 </resources>

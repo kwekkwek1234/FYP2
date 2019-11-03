@@ -128,10 +128,18 @@ public class ProfileFragment extends Fragment implements  View.OnClickListener{
             fragmentTransaction.commit();
         }
         if(v == btnSetAddress){
-
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            AddressFragment addressFragment = new AddressFragment();
+            fragmentTransaction.replace(R.id.fragment_container,addressFragment);
+            fragmentTransaction.commit();
         }
         if(v == btnTrackShipping){
-
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            DeliveryServiceFragment deliveryServiceFragment = new DeliveryServiceFragment();
+            fragmentTransaction.replace(R.id.fragment_container,deliveryServiceFragment);
+            fragmentTransaction.commit();
         }
         if(v == btnSignout){
             FirebaseAuth.getInstance().signOut();
