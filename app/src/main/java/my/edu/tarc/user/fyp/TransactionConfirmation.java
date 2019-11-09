@@ -5,11 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,11 +18,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 public class TransactionConfirmation extends AppCompatActivity {
     private TextView transID, transTo, transDesc,transAmount;
@@ -35,7 +31,6 @@ public class TransactionConfirmation extends AppCompatActivity {
     FirebaseUser user;
     String amount ,activity;
 
-    Transaction transactions;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +45,7 @@ public class TransactionConfirmation extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         user = auth.getCurrentUser();
-        amount = getIntent().getExtras().getString("amount");
+        amount = getIntent().getStringExtra("amount");
         activity = getIntent().getExtras().getString("activity");
         transaction = database.getReference("Transaction");
         displayTransactionConfirmation();
@@ -61,14 +56,13 @@ public class TransactionConfirmation extends AppCompatActivity {
                 if(v == btnSubmit){
                     String id = transID.getText().toString().trim();
                     String to = transTo.getText().toString().trim();
-                    String transactionAmmout = transAmount.getText().toString().trim();
                     String desc = transDesc.getText().toString().trim();
                     String status = "Successful";
 
                     Intent intent = new Intent(getApplicationContext(),TransactionDoneActivity.class);
                     intent.putExtra("id",id);
                     intent.putExtra("to",to);
-                    intent.putExtra("transactionAmount",transactionAmmout);
+                    intent.putExtra("transactionAmount",amount);
                     intent.putExtra("desc",desc);
                     intent.putExtra("status",status);
                     startActivity(intent);
@@ -81,14 +75,13 @@ public class TransactionConfirmation extends AppCompatActivity {
             public void onClick(View v) {
                 String id = transID.getText().toString().trim();
                 String to = transTo.getText().toString().trim();
-                String transactionAmmout = transAmount.getText().toString().trim();
                 String desc = transDesc.getText().toString().trim();
                 String status = "Failed";
 
                 Intent intent = new Intent(getApplicationContext(),TransactionDoneActivity.class);
                 intent.putExtra("id",id);
                 intent.putExtra("to",to);
-                intent.putExtra("transactionAmount",transactionAmmout);
+                intent.putExtra("amount",amount);
                 intent.putExtra("desc",desc);
                 intent.putExtra("status",status);
                 startActivity(intent);
@@ -98,7 +91,7 @@ public class TransactionConfirmation extends AppCompatActivity {
 
     private void displayTransactionConfirmation() {
         generateTransactionID();
-        transAmount.setText(amount+ ".00");
+        transAmount.setText("RM " +amount+ ".00");
 
         if(activity.equals("Topup")){
             transDesc.setText(activity);
@@ -124,58 +117,48 @@ public class TransactionConfirmation extends AppCompatActivity {
         transactionQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
                     lastTransaction[0] = dataSnapshot.getChildren().iterator().next().getKey();
-                    transaction.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            String datePart = lastTransaction[0].substring(0,5);
-                            String indexPart = lastTransaction[0].substring(6,10);
+                    String datePart = lastTransaction[0].substring(0, 6);
+                    String indexPart = lastTransaction[0].substring(6, 12);
 
-                            if(datePart.equals(fd)){
-                                int tempIndex = Integer.parseInt(indexPart);
-                                tempIndex += 1;
-                                if(tempIndex> 0 && tempIndex < 10){
-                                    transID.setText(fd + "00000" + tempIndex);
-                                }
-                                if(tempIndex > 9 && tempIndex <100){
-                                    transID.setText(fd + "0000" + tempIndex);
-                                }
-                                if(tempIndex> 99 && tempIndex < 1000){
-                                    transID.setText(fd + "000" + tempIndex);
-                                }
-                                if(tempIndex > 999 && tempIndex <10000){
-                                    transID.setText(fd + "00" + tempIndex);
-                                }
-                                if(tempIndex > 9999 && tempIndex <100000){
-                                    transID.setText(fd + "00" + tempIndex);
-                                }
-                                if(tempIndex > 99999 && tempIndex <1000000){
-                                    transID.setText(fd + "0" + tempIndex);
-                                }
-                                if(tempIndex > 9999 && tempIndex <100000){
-                                    transID.setText(fd  + tempIndex);
-                                }
-                            }
-                            //the next day transaction begin
-                            if(!datePart.equals(fd)){
-                                datePart = fd;
-                                int index = 0;
-                                index += 1 ;
-                                transID.setText(fd + "00000" + index);
-
-                            }
+                    if (datePart.equals(fd)) {
+                        int tempIndex = Integer.parseInt(indexPart);
+                        tempIndex += 1;
+                        if (tempIndex > 0 && tempIndex < 10) {
+                            transID.setText(fd + "00000" + tempIndex);
                         }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                        if (tempIndex > 9 && tempIndex < 100) {
+                            transID.setText(fd + "0000" + tempIndex);
                         }
-                    });
+                        if (tempIndex > 99 && tempIndex < 1000) {
+                            transID.setText(fd + "000" + tempIndex);
+                        }
+                        if (tempIndex > 999 && tempIndex < 10000) {
+                            transID.setText(fd + "00" + tempIndex);
+                        }
+                        if (tempIndex > 9999 && tempIndex < 100000) {
+                            transID.setText(fd + "00" + tempIndex);
+                        }
+                        if (tempIndex > 99999 && tempIndex < 1000000) {
+                            transID.setText(fd + "0" + tempIndex);
+                        }
+                        if (tempIndex > 9999 && tempIndex < 100000) {
+                            transID.setText(fd + tempIndex);
+                        }
+                    }
+                    //the next day transaction begin
+                    if (!datePart.equals(fd)) {
+                        datePart = fd;
+                        int index = 0;
+                        index += 1;
+                        transID.setText(fd + "00000" + index);
 
-                }else{
+                    }
+
+                } else {
                     int index = 0;
-                    index += 1 ;
+                    index += 1;
                     transID.setText(fd + "00000" + index);
                 }
 

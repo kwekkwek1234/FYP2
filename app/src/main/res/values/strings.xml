@@ -78,4 +78,11 @@
     <string name="textTransDescription">Description</string>
     <string name="amount">Amount</string>
     <string name="cancel">Cancel</string>
+
+    <!-- Transaction Done Activity -->
+    <string name="textStatus">Status</string>
+    <string name="textDateTime">Transaction Date and Time</string>
+    <string name="textbalanceBefore">Balance Before</string>
+    <string name="textbalanceAfter">Balance After</string>
+    <string name="btnBack">Back</string>
 </resources>

@@ -1,26 +1,27 @@
 package my.edu.tarc.user.fyp;
 
 public class Transaction {
-    String transactionId, toWho, transactionDesc,date,time,balance,amount;
+    String transactionId, toWho, transactionDesc,dateTime,balance,amount,status;
 
     public Transaction() {
     }
 
-    public Transaction(String transactionId, String toWho, String transactionDesc, String date, String time,String balance,String amount) {
+    public Transaction(String transactionId, String toWho, String transactionDesc, String dateTime,String balance,String amount,String status) {
         this.transactionId = transactionId;
         this.toWho = toWho;
         this.transactionDesc = transactionDesc;
-        this.date = date;
-        this.time = time;
+        this.dateTime = dateTime;
         this.balance = balance;
         this.amount = amount;
+        this.status = status;
     }
 
-    public Transaction(String transactionId, String toWho, String transactionDesc, String amount) {
-        this.transactionId = transactionId;
-        this.toWho = toWho;
-        this.transactionDesc = transactionDesc;
-        this.amount = amount;
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getTransactionId() {
@@ -47,20 +48,12 @@ public class Transaction {
         this.transactionDesc = transactionDesc;
     }
 
-    public String getDate() {
-        return date;
+    public String getDateTime() {
+        return dateTime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 
     public String getBalance() {
