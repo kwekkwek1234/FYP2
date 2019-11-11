@@ -26,7 +26,7 @@ public class TransactionConfirmation extends AppCompatActivity {
     private TextView transID, transTo, transDesc,transAmount;
     private Button btnSubmit,btnCancel;
     FirebaseDatabase database;
-    DatabaseReference transaction;
+    DatabaseReference transaction,ref;
     FirebaseAuth auth;
     FirebaseUser user;
     String amount ,activity;
@@ -66,6 +66,7 @@ public class TransactionConfirmation extends AppCompatActivity {
                     intent.putExtra("desc",desc);
                     intent.putExtra("status",status);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -85,6 +86,7 @@ public class TransactionConfirmation extends AppCompatActivity {
                 intent.putExtra("desc",desc);
                 intent.putExtra("status",status);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -99,6 +101,19 @@ public class TransactionConfirmation extends AppCompatActivity {
         }
         if(activity.equals("Withdraw")){
             transDesc.setText(activity);
+            ref = database.getReference("Users").child(user.getUid()).child("Details");
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    User cuser = dataSnapshot.getValue(User.class);
+                    transTo.setText(cuser.getName());;
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
             transTo.setText("UserName");
         }
         if(activity.equals("Payment")){

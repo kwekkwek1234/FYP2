@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TransactionDoneActivity"></activity>
+        <activity android:name=".WithdrawActivity"></activity>
+        <activity android:name=".TransactionDoneActivity" />
         <activity android:name=".TransactionConfirmation" />
         <activity android:name=".SetAddressActivity" />
         <activity android:name=".TopupActivity" />

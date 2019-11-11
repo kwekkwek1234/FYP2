@@ -56,6 +56,7 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
             intent.putExtra("amount",amount);
             intent.putExtra("activity",activity);
             startActivity(intent);
+            finish();
         }
     }
 

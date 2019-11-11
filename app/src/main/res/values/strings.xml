@@ -85,4 +85,10 @@
     <string name="textbalanceBefore">Balance Before</string>
     <string name="textbalanceAfter">Balance After</string>
     <string name="btnBack">Back</string>
+
+    <!-- Withdraw Activity -->
+    <string name="textWithdraw">Withdraw amount : RM </string>
+    <string name="textvalue">You have available balance of RM</string>
+    <string name="textAccountNo">Account Number :</string>
+
 </resources>

@@ -37,6 +37,7 @@ public class TransactionDoneActivity extends AppCompatActivity {
     final SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy  HH:mm");
     final String fd =  df.format(date);
     String newBalance1;
+    Transaction trans;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,19 +78,11 @@ public class TransactionDoneActivity extends AppCompatActivity {
 
     private void saveTransaction() {
         final DatabaseReference transRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Transaction");
-        final Transaction trans = new Transaction(tid,to,desc,tDateTime.getText().toString(),newBalance1,amount,status);
+
         transaction.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 transaction.child(tid).setValue(trans);
-                Toast.makeText(getApplicationContext(),"Transaction done.",Toast.LENGTH_LONG).show();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                eWalletFragment ewallet = new eWalletFragment();
-                fragmentTransaction.replace(R.id.fragment_container,ewallet).addToBackStack(null).commit();
-
-
-
             }
 
             @Override
@@ -110,10 +103,23 @@ public class TransactionDoneActivity extends AppCompatActivity {
             }
         });
 
+        transRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                transRef.child(tid).setValue(trans);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        finish();
+
+
     }
 
     private void displayTransaction() {
-
 
         tStatus.setText(status);
         tID.setText(tid);
@@ -131,16 +137,28 @@ public class TransactionDoneActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    for(DataSnapshot ds : dataSnapshot.getChildren()) {
                         Transaction transaction1 = ds.getValue(Transaction.class);
-
-                        assert transaction1 != null;
-                        final int amount2 = Integer.parseInt(transaction1.getAmount());
-                        tBalanceBefore.setText("RM " + amount2 + ".00");
-                        int balance1 = amount2;
-                        balance1 += amount1;
-                        String newBalance = String.valueOf(balance1);
-                        tBalanceAfter.setText("RM "+ newBalance + ".00");
+                        if (desc.equals("Topup")) {
+                            assert transaction1 != null;
+                            final int balance2 = Integer.parseInt(transaction1.getBalance());
+                            tBalanceBefore.setText("RM " + balance2 + ".00");
+                            int balance1 = balance2;
+                            balance1 += amount1;
+                            String newBalance = String.valueOf(balance1);
+                            tBalanceAfter.setText("RM " + newBalance + ".00");
+                            trans = new Transaction(tid, to, desc, tDateTime.getText().toString(), newBalance, amount, status);
+                        }
+                        if(desc.equals("Withdraw")){
+                            assert transaction1 != null;
+                            final int balance2 = Integer.parseInt(transaction1.getBalance());
+                            tBalanceBefore.setText("RM " + balance2 + ".00");
+                            int balance1 = balance2;
+                            balance1 -= amount1;
+                            String newBalance = String.valueOf(balance1);
+                            tBalanceAfter.setText("RM " + newBalance + ".00");
+                            trans = new Transaction(tid, to, desc, tDateTime.getText().toString(), newBalance, amount, status);
+                        }
                     }
 
 
@@ -150,7 +168,7 @@ public class TransactionDoneActivity extends AppCompatActivity {
                     balance += amount1;
                     newBalance1 = String.valueOf(balance);
                     tBalanceAfter.setText("RM " +newBalance1 + ".00");
-
+                    trans = new Transaction(tid,to,desc,tDateTime.getText().toString(),newBalance1,amount,status);
                 }
             }
 
