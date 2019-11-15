@@ -59,7 +59,10 @@ public class LoginFragment extends Fragment {
             //profile activity
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            Bundle bundle = new Bundle();
+            bundle.putString("user","Customer");
             ProfileFragment profileFragment = new ProfileFragment();
+            profileFragment.setArguments(bundle);
             fragmentTransaction.replace(R.id.fragment_container,profileFragment);
             fragmentTransaction.commit();
         }
@@ -74,6 +77,11 @@ public class LoginFragment extends Fragment {
         textViewSignStaff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                StaffLoginFragment sLogin = new StaffLoginFragment();
+                fragmentTransaction.replace(R.id.fragment_container,sLogin);
+                fragmentTransaction.commit();
 
 
             }
@@ -113,7 +121,10 @@ public class LoginFragment extends Fragment {
                 if(task.isSuccessful()){
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("user","Customer");
                     ProfileFragment profileFragment = new ProfileFragment();
+                    profileFragment.setArguments(bundle);
                     fragmentTransaction.replace(R.id.fragment_container,profileFragment);
                     fragmentTransaction.commit();
 

@@ -1,7 +1,30 @@
 package my.edu.tarc.user.fyp;
 
 public class User {
-    private String name,email,password;
+    private String name,email,password,staffId,phoneNo;
+
+    public User(String name, String password, String staffId, String phoneNo) {
+        this.name = name;
+        this.password = password;
+        this.staffId = staffId;
+        this.phoneNo = phoneNo;
+    }
+
+    public String getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(String staffId) {
+        this.staffId = staffId;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
 
     public User() {
     }

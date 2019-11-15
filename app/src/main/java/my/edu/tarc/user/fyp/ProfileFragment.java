@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -33,8 +33,9 @@ public class ProfileFragment extends Fragment implements  View.OnClickListener{
     private Button btnSetUP, btnEWallet, btnTrackShipping, btnSetAddress,btnSignout;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference ref;
+    DatabaseReference ref,ref1;
     FirebaseUser user;
+    String sid,usertype;
 
     private OnFragmentInteractionListener mListener;
 
@@ -63,87 +64,128 @@ public class ProfileFragment extends Fragment implements  View.OnClickListener{
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-         user = firebaseAuth.getCurrentUser();
+        user = firebaseAuth.getCurrentUser();
 
+        usertype = getArguments().getString("user");
+        sid = getArguments().getString("staffId");
+        if(usertype.equals("Customer")){
+            CustomerProfile();
+        }
+        if(usertype.equals("Staff")){
+            StaffProfile();
+        }
+        // Inflate the layout for this fragment
+        return view;
+    }
+
+    private void StaffProfile() {
         displayName();
+        btnTrackShipping.setText("Delivery");
+        btnSetUP.setOnClickListener(this);
+        btnEWallet.setOnClickListener(this);
+        btnTrackShipping.setOnClickListener(this);
+        btnSetAddress.setOnClickListener(this);
+        btnSignout.setOnClickListener(this);
+    }
 
+    private void CustomerProfile() {
         if(firebaseAuth.getCurrentUser() == null){
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             LoginFragment loginFragment = new LoginFragment();
             fragmentTransaction.replace(R.id.fragment_container,loginFragment);
             fragmentTransaction.commit();
-
         }
 
-
-
-
+        displayName();
         btnSetUP.setOnClickListener(this);
         btnEWallet.setOnClickListener(this);
         btnTrackShipping.setOnClickListener(this);
         btnSetAddress.setOnClickListener(this);
         btnSignout.setOnClickListener(this);
 
-        // Inflate the layout for this fragment
-        return view;
+
     }
 
     private void displayName() {
-        ref = firebaseDatabase.getReference("Users").child(user.getUid()).child("Details");
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User cuser = dataSnapshot.getValue(User.class);
-                name.setText(cuser.getName());
-            }
+        if(usertype.equals("Customer")) {
+            ref = firebaseDatabase.getReference("Users").child(user.getUid()).child("Details");
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    User cuser = dataSnapshot.getValue(User.class);
+                    name.setText(cuser.getName());
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
+
+        if(usertype.equals("Staff")){
+            ref1 = firebaseDatabase.getReference("Staff").child(sid).child("Details");
+            ref1.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    User u = dataSnapshot.getValue(User.class);
+                    name.setText(u.getName());
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
 }
 
 
     @Override
     public void onClick(View v) {
-        if(v == btnSetUP){
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            UserPreferenceFragment userPreferenceFragment = new UserPreferenceFragment();
-            fragmentTransaction.replace(R.id.fragment_container,userPreferenceFragment);
-            fragmentTransaction.commit();
+            if (v == btnSetUP) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                UserPreferenceFragment userPreferenceFragment = new UserPreferenceFragment();
+                fragmentTransaction.replace(R.id.fragment_container, userPreferenceFragment);
+                fragmentTransaction.commit();
+            }
+            if (v == btnEWallet) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                eWalletFragment eWalletFragment = new eWalletFragment();
+                fragmentTransaction.replace(R.id.fragment_container, eWalletFragment);
+                fragmentTransaction.commit();
+            }
+            if (v == btnSetAddress) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                AddressFragment addressFragment = new AddressFragment();
+                fragmentTransaction.replace(R.id.fragment_container, addressFragment);
+                fragmentTransaction.commit();
+            }
+            if (v == btnSignout) {
+                FirebaseAuth.getInstance().signOut();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                LoginFragment loginFragment = new LoginFragment();
+                fragmentTransaction.replace(R.id.fragment_container, loginFragment);
+                fragmentTransaction.commit();
+            }
+            if(usertype.equals("Customer")){
+            if (v == btnTrackShipping) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                DeliveryServiceFragment deliveryServiceFragment = new DeliveryServiceFragment();
+                fragmentTransaction.replace(R.id.fragment_container, deliveryServiceFragment);
+                fragmentTransaction.commit();
+            }
+            if(usertype.equals("Staff")){
+
+            }
         }
-        if(v == btnEWallet){
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            eWalletFragment eWalletFragment = new eWalletFragment();
-            fragmentTransaction.replace(R.id.fragment_container,eWalletFragment);
-            fragmentTransaction.commit();
-        }
-        if(v == btnSetAddress){
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            AddressFragment addressFragment = new AddressFragment();
-            fragmentTransaction.replace(R.id.fragment_container,addressFragment);
-            fragmentTransaction.commit();
-        }
-        if(v == btnTrackShipping){
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            DeliveryServiceFragment deliveryServiceFragment = new DeliveryServiceFragment();
-            fragmentTransaction.replace(R.id.fragment_container,deliveryServiceFragment);
-            fragmentTransaction.commit();
-        }
-        if(v == btnSignout){
-            FirebaseAuth.getInstance().signOut();
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            LoginFragment loginFragment = new LoginFragment();
-            fragmentTransaction.replace(R.id.fragment_container,loginFragment);
-            fragmentTransaction.commit();
-        }
+
     }
 
 
