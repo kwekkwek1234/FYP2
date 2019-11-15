@@ -25,20 +25,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+
 
 
 public class ProfileFragment extends Fragment implements  View.OnClickListener{
-    private TextView textViewName;
+    private TextView name;
     private Button btnSetUP, btnEWallet, btnTrackShipping, btnSetAddress,btnSignout;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference ref;
-    String userID;
-
-    private  FirebaseAuth.AuthStateListener authStateListener;
-
+    FirebaseUser user;
 
     private OnFragmentInteractionListener mListener;
 
@@ -57,17 +53,19 @@ public class ProfileFragment extends Fragment implements  View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        textViewName = (TextView) view.findViewById(R.id.name);
+
         btnSetUP = (Button) view.findViewById(R.id.btnSetUp);
         btnEWallet = (Button) view.findViewById(R.id.btnEWallet);
         btnTrackShipping = (Button) view.findViewById(R.id.btnTrackShipping);
         btnSetAddress = (Button) view.findViewById(R.id.btnSetAddress);
         btnSignout = (Button) view.findViewById(R.id.btnSignOut);
+        name = (TextView) view.findViewById(R.id.Name);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        ref = firebaseDatabase.getReference();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        userID = firebaseAuth.getUid();
+
+         user = firebaseAuth.getCurrentUser();
+
+        displayName();
 
         if(firebaseAuth.getCurrentUser() == null){
             FragmentManager fragmentManager = getFragmentManager();
@@ -78,21 +76,7 @@ public class ProfileFragment extends Fragment implements  View.OnClickListener{
 
         }
 
-        if(firebaseAuth.getCurrentUser()!= null){
 
-         //  textViewName.setText("" +user.getDisplayName());
-        }
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                showData(dataSnapshot);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
 
         btnSetUP.setOnClickListener(this);
@@ -105,20 +89,31 @@ public class ProfileFragment extends Fragment implements  View.OnClickListener{
         return view;
     }
 
-    private void showData(DataSnapshot dataSnapshot) {
-        for(DataSnapshot ds: dataSnapshot.getChildren()){
-            User users = new User();
-//            users.setName((ds.child(userID).getValue(User.class).getName()));
-            ArrayList<String> array = new ArrayList<>();
-            array.add(users.getName());
-       //     ArrayAdapter adapter = new ArrayAdapter(this, R.layout.,array);
-        }
-    }
+    private void displayName() {
+        ref = firebaseDatabase.getReference("Users").child(user.getUid()).child("Details");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User cuser = dataSnapshot.getValue(User.class);
+                name.setText(cuser.getName());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+}
+
 
     @Override
     public void onClick(View v) {
         if(v == btnSetUP){
-
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            UserPreferenceFragment userPreferenceFragment = new UserPreferenceFragment();
+            fragmentTransaction.replace(R.id.fragment_container,userPreferenceFragment);
+            fragmentTransaction.commit();
         }
         if(v == btnEWallet){
             FragmentManager fragmentManager = getFragmentManager();

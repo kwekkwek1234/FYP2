@@ -91,4 +91,19 @@
     <string name="textvalue">You have available balance of RM</string>
     <string name="textAccountNo">Account Number :</string>
 
+    <!-- User Preference Activity -->
+    <string name="textManageUP">Manage User Preference</string>
+    <string name="textDetails">Please choose 1 category you wish to show for all the time :</string>
+    <string name="cat1">Shirts</string>
+    <string name="cat2">Pants</string>
+    <string name="cat3">Shoes</string>
+    <string name="cat4">Adidas</string>
+    <string name="cat5">Puma</string>
+    <string name="cat6">Nike</string>
+    <string name="save">Save</string>
+
+    <!-- Staff Login -->
+    <string name="textLoginCus">Customer? Sign in here</string>
+    <string name="textId">Staff ID</string>
+
 </resources>
