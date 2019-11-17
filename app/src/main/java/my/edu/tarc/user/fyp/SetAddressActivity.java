@@ -30,9 +30,10 @@ public class SetAddressActivity extends AppCompatActivity implements View.OnClic
     private CheckBox cbDefaultAddress;
     private Button btnSubmit;
     FirebaseDatabase database;
-    DatabaseReference users;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
+    String usertype,sid;
+    DatabaseReference addressRef;
 
 
     public SetAddressActivity() {
@@ -58,7 +59,9 @@ public class SetAddressActivity extends AppCompatActivity implements View.OnClic
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
-        users = database.getReference("Users");
+        usertype = getIntent().getExtras().getString("user");
+        sid = getIntent().getExtras().getString("staffId");
+
 
         btnSubmit.setOnClickListener(this);
     }
@@ -113,7 +116,12 @@ public class SetAddressActivity extends AppCompatActivity implements View.OnClic
 
         final Address address1 = new Address(receiverName,phoneNumber,address,postalCode,area,state,defaultAddress);
         firebaseUser = firebaseAuth.getCurrentUser();
-        final DatabaseReference addressRef = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid()).child("Address");
+
+        if(usertype.equals("Customer")){
+        addressRef= FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid()).child("Address");}
+        if(usertype.equals("Staff")){
+            addressRef= FirebaseDatabase.getInstance().getReference().child("Staff").child(sid).child("Address");
+        }
         Query lastAddress = addressRef.orderByKey().limitToLast(1);
         final String[] lastAddress1 = new String[10];
         lastAddress.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -145,6 +153,7 @@ public class SetAddressActivity extends AppCompatActivity implements View.OnClic
                             int tempDigit = Integer.parseInt(lastAddress1[0]);
                             tempDigit += 1;
                             String nextNo = String.valueOf(tempDigit);
+                           address1.setDefaultAddress("Yes");
                             addressRef.child(nextNo).setValue(address1);
                             Toast.makeText(getApplicationContext(),"Address added.",Toast.LENGTH_LONG).show();
                             finish();

@@ -117,7 +117,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressDialog.dismiss();
-                Toast.makeText(getActivity(),"Successful",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Welcome " ,Toast.LENGTH_LONG).show();
                 if(task.isSuccessful()){
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

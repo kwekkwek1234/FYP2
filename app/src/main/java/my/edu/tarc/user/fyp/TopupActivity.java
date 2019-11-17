@@ -23,6 +23,8 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
     private CheckBox save;
     private DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase;
+    FirebaseUser user;
+    String usertype,sid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +36,19 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
         editMinAmount = (EditText) findViewById(R.id.editMinAmount);
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
         save = (CheckBox) findViewById(R.id.checkSave);
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Users");
+        usertype = getIntent().getExtras().getString("user");
+        sid = getIntent().getExtras().getString("sid");
+
+        if(usertype.equals("Customer")){
+            databaseReference = firebaseDatabase.getReference("Users").child(user.getUid());
+        }
+        if(usertype.equals("Staff")){
+            databaseReference = firebaseDatabase.getReference("Staff").child(sid);
+        }
+
 
         btnSubmit.setOnClickListener(this);
 
@@ -55,6 +67,8 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
             Intent intent = new Intent(this,TransactionConfirmation.class);
             intent.putExtra("amount",amount);
             intent.putExtra("activity",activity);
+            intent.putExtra("user",usertype);
+            intent.putExtra("staffId",sid);
             startActivity(intent);
             finish();
         }
@@ -66,8 +80,7 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
         String cvv =  textCvv.getText().toString().trim();
 
         CardDetails cardDetails = new CardDetails(cardNumber,expiryDate,cvv);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        databaseReference.child(user.getUid().toString()).child("Card Information").setValue(cardDetails);
+        databaseReference.child("Card Information").setValue(cardDetails);
         Toast.makeText(this,"Card Information saved.",Toast.LENGTH_LONG).show();
     }
 }

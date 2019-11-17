@@ -38,28 +38,21 @@ import my.edu.tarc.user.fyp.ViewHolder.AddressViewHolder;
 public class AddressFragment extends Fragment {
 
     private String userNode;
-    private String addressNode;
+    private String addressNode,sid,usertype,staffNode;
 
     private FirebaseRecyclerOptions<Address> options;
     private FirebaseRecyclerAdapter<Address, AddressViewHolder> adapter;
     private FirebaseAuth auth;
     private FirebaseUser user;
-
+    DatabaseReference addressRef;
     private RecyclerView address_list;
     private Button btnSetAddress;
 
     public AddressFragment() {
         // Required empty public constructor
+        staffNode = "Staff";
         addressNode = "Address";
         userNode = "Users";
-    }
-
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -70,6 +63,8 @@ public class AddressFragment extends Fragment {
         user = auth.getCurrentUser();
         address_list = view.findViewById(R.id.addressRecycleView);
         btnSetAddress = view.findViewById(R.id.btnAddAddress);
+        usertype = getArguments().getString("user");
+        sid = getArguments().getString("staffId");
         address_list.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         address_list.setLayoutManager(layoutManager);
@@ -78,7 +73,10 @@ public class AddressFragment extends Fragment {
         btnSetAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),SetAddressActivity.class));
+                Intent intent = new Intent(getActivity(),SetAddressActivity.class);
+                intent.putExtra("user",usertype);
+                intent.putExtra("staffId",sid);
+                startActivity(intent);
             }
         });
 
@@ -86,12 +84,23 @@ public class AddressFragment extends Fragment {
     }
 
     private void loadAddress() {
-        DatabaseReference addressRef = FirebaseDatabase
-                .getInstance()
-                .getReference()
-                .child(userNode)
-                .child(user.getUid())
-                .child(addressNode);
+
+        if(usertype.equals("Customer")) {
+            addressRef = FirebaseDatabase
+                    .getInstance()
+                    .getReference()
+                    .child(userNode)
+                    .child(user.getUid())
+                    .child(addressNode);
+        }
+        if(usertype.equals("Staff")) {
+            addressRef = FirebaseDatabase
+                    .getInstance()
+                    .getReference()
+                    .child(staffNode)
+                    .child(sid)
+                    .child(addressNode);
+        }
 
         options = new FirebaseRecyclerOptions.Builder<Address>()
                 .setQuery(addressRef, Address.class)
@@ -124,8 +133,7 @@ public class AddressFragment extends Fragment {
             }
         };
         adapter.startListening();
-        address_list.setAdapter(adapter);
-    }
+        address_list.setAdapter(adapter);}
 
     @Override
     public void onStart() {

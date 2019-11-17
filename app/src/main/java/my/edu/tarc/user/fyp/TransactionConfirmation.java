@@ -29,7 +29,7 @@ public class TransactionConfirmation extends AppCompatActivity {
     DatabaseReference transaction,ref;
     FirebaseAuth auth;
     FirebaseUser user;
-    String amount ,activity;
+    String amount ,activity,usertype,sid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,15 @@ public class TransactionConfirmation extends AppCompatActivity {
         user = auth.getCurrentUser();
         amount = getIntent().getStringExtra("amount");
         activity = getIntent().getExtras().getString("activity");
+        usertype = getIntent().getExtras().getString("user");
+        sid = getIntent().getExtras().getString("staffId");
         transaction = database.getReference("Transaction");
+        if(usertype.equals("Customer")){
+            ref = database.getReference("Users").child(user.getUid()).child("Details");
+        }
+        if(usertype.equals("Staff")){
+            ref = database.getReference("Staff").child(sid).child("Details");
+        }
         displayTransactionConfirmation();
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +73,8 @@ public class TransactionConfirmation extends AppCompatActivity {
                     intent.putExtra("transactionAmount",amount);
                     intent.putExtra("desc",desc);
                     intent.putExtra("status",status);
+                    intent.putExtra("user",usertype);
+                    intent.putExtra("staffId",sid);
                     startActivity(intent);
                     finish();
                 }
@@ -101,7 +111,6 @@ public class TransactionConfirmation extends AppCompatActivity {
         }
         if(activity.equals("Withdraw")){
             transDesc.setText(activity);
-            ref = database.getReference("Users").child(user.getUid()).child("Details");
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -114,7 +123,7 @@ public class TransactionConfirmation extends AppCompatActivity {
 
                 }
             });
-            transTo.setText("UserName");
+
         }
         if(activity.equals("Payment")){
             transDesc.setText(activity + "OrderID");

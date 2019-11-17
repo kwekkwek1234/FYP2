@@ -29,10 +29,10 @@ public class TransactionDoneActivity extends AppCompatActivity {
     private TextView tStatus,tID, tTo, tDesc,tAmount,tBalanceBefore, tBalanceAfter, tDateTime;
     private Button bBack;
     FirebaseDatabase database;
-    DatabaseReference transaction;
+    DatabaseReference transaction, transRef;
     FirebaseAuth auth;
     FirebaseUser user;
-    String status,tid,to,desc,amount;
+    String status,tid,to,desc,amount,usertype,sid;
     final Date date = Calendar.getInstance().getTime();
     final SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy  HH:mm");
     final String fd =  df.format(date);
@@ -61,6 +61,8 @@ public class TransactionDoneActivity extends AppCompatActivity {
         tid = getIntent().getExtras().getString("id");
         to = getIntent().getExtras().getString("to");
         desc = getIntent().getExtras().getString("desc");
+        usertype = getIntent().getExtras().getString("user");
+        sid = getIntent().getExtras().getString("staffId");
         transaction = database.getReference("Transaction");
         displayTransaction();
 
@@ -77,8 +79,12 @@ public class TransactionDoneActivity extends AppCompatActivity {
     }
 
     private void saveTransaction() {
-        final DatabaseReference transRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Transaction");
-
+        if(usertype.equals("Customer")) {
+            transRef = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Transaction");
+        }
+        if(usertype.equals("Staff")){
+            transRef = FirebaseDatabase.getInstance().getReference("Staff").child(sid).child("Transaction");
+        }
         transaction.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -103,17 +109,6 @@ public class TransactionDoneActivity extends AppCompatActivity {
             }
         });
 
-        transRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                transRef.child(tid).setValue(trans);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
         finish();
 
 

@@ -71,6 +71,7 @@ public class StaffLoginFragment extends Fragment implements View.OnClickListener
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             LoginFragment loginFragment = new LoginFragment();
             fragmentTransaction.replace(R.id.fragment_container,loginFragment);
+            fragmentTransaction.commit();
         }
     }
 
@@ -100,7 +101,8 @@ public class StaffLoginFragment extends Fragment implements View.OnClickListener
                 String pass = u.getPassword();
                 if(id.equals(sid)){
                     if(password.equals(pass)){
-                       progressDialog.dismiss();
+                        progressDialog.dismiss();
+                        Toast.makeText(getActivity(),"Welcome " + u.getName(),Toast.LENGTH_LONG).show();
                         FragmentManager fragmentManager = getFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         Bundle bundle = new Bundle();

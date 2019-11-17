@@ -35,7 +35,8 @@ public class UserPreferenceFragment extends Fragment implements View.OnClickList
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseDatabase database;
-    private DatabaseReference ref;
+    private DatabaseReference ref,ref2;
+    String usertype,sid;
 
 
     public UserPreferenceFragment() {
@@ -61,6 +62,9 @@ public class UserPreferenceFragment extends Fragment implements View.OnClickList
         database = FirebaseDatabase.getInstance();
         btnSave.setOnClickListener(this);
 
+        usertype = getArguments().getString("user");
+        sid = getArguments().getString("staffId");
+
         return view;
     }
 
@@ -69,9 +73,13 @@ public class UserPreferenceFragment extends Fragment implements View.OnClickList
         if(v == btnSave){
             int id = radioCat.getCheckedRadioButtonId();
             cat = radioCat.findViewById(id);
-           up = cat.getText().toString();
+            up = cat.getText().toString();
 
-            ref = database.getReference("Users").child(user.getUid()).child("Preferences");
+           if(usertype.equals("Customer")){
+            ref = database.getReference("Users").child(user.getUid()).child("Preferences");}
+           if(usertype.equals("Staff")){
+               ref = database.getReference("Staff").child(sid).child("Preferences");}
+
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -79,7 +87,10 @@ public class UserPreferenceFragment extends Fragment implements View.OnClickList
                     Toast.makeText(getActivity(),"User Preference Set",Toast.LENGTH_LONG).show();
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("user",usertype);
                     ProfileFragment profileFragment = new ProfileFragment();
+                    profileFragment.setArguments(bundle);
                     fragmentTransaction.replace(R.id.fragment_container,profileFragment);
                     fragmentTransaction.commit();
                 }
@@ -90,5 +101,7 @@ public class UserPreferenceFragment extends Fragment implements View.OnClickList
                 }
             });
         }
+
+
     }
 }

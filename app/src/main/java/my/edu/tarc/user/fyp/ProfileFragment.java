@@ -37,7 +37,6 @@ public class ProfileFragment extends Fragment implements  View.OnClickListener{
     FirebaseUser user;
     String sid,usertype;
 
-    private OnFragmentInteractionListener mListener;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -69,6 +68,7 @@ public class ProfileFragment extends Fragment implements  View.OnClickListener{
         usertype = getArguments().getString("user");
         sid = getArguments().getString("staffId");
         if(usertype.equals("Customer")){
+            sid = null;
             CustomerProfile();
         }
         if(usertype.equals("Staff")){
@@ -110,6 +110,11 @@ public class ProfileFragment extends Fragment implements  View.OnClickListener{
     private void displayName() {
         if(usertype.equals("Customer")) {
             ref = firebaseDatabase.getReference("Users").child(user.getUid()).child("Details");
+        }
+
+        if(usertype.equals("Staff")) {
+            ref = firebaseDatabase.getReference("Staff").child(sid).child("Details");
+        }
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -122,32 +127,20 @@ public class ProfileFragment extends Fragment implements  View.OnClickListener{
 
                 }
             });
-        }
-
-        if(usertype.equals("Staff")){
-            ref1 = firebaseDatabase.getReference("Staff").child(sid).child("Details");
-            ref1.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    User u = dataSnapshot.getValue(User.class);
-                    name.setText(u.getName());
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
 }
 
 
     @Override
     public void onClick(View v) {
+        Bundle bundle = new Bundle();
+        bundle.putString("user",usertype);
+        bundle.putString("staffId",sid);
+
             if (v == btnSetUP) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 UserPreferenceFragment userPreferenceFragment = new UserPreferenceFragment();
+                userPreferenceFragment.setArguments(bundle);
                 fragmentTransaction.replace(R.id.fragment_container, userPreferenceFragment);
                 fragmentTransaction.commit();
             }
@@ -155,6 +148,7 @@ public class ProfileFragment extends Fragment implements  View.OnClickListener{
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 eWalletFragment eWalletFragment = new eWalletFragment();
+                eWalletFragment.setArguments(bundle);
                 fragmentTransaction.replace(R.id.fragment_container, eWalletFragment);
                 fragmentTransaction.commit();
             }
@@ -162,6 +156,7 @@ public class ProfileFragment extends Fragment implements  View.OnClickListener{
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 AddressFragment addressFragment = new AddressFragment();
+                addressFragment.setArguments(bundle);
                 fragmentTransaction.replace(R.id.fragment_container, addressFragment);
                 fragmentTransaction.commit();
             }
@@ -189,8 +184,5 @@ public class ProfileFragment extends Fragment implements  View.OnClickListener{
     }
 
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
+
 }

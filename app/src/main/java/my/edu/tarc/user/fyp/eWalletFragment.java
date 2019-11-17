@@ -6,16 +6,20 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +29,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class eWalletFragment extends Fragment implements View.OnClickListener {
 
     DatabaseReference transRef,ref;
@@ -33,7 +39,10 @@ public class eWalletFragment extends Fragment implements View.OnClickListener {
     FirebaseDatabase database;
     private TextView textViewAmount;
     private Button btnTopup, btnWithdraw;
-
+    ArrayList<String> arrayList = new ArrayList<>();
+    ArrayAdapter<String> adapter;
+    ListView transList;
+    String usertype,sid;
     public eWalletFragment() {
         // Required empty public constructor
     }
@@ -44,11 +53,7 @@ public class eWalletFragment extends Fragment implements View.OnClickListener {
 
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
-//    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,7 +63,22 @@ public class eWalletFragment extends Fragment implements View.OnClickListener {
         database = FirebaseDatabase.getInstance();
         user = auth.getCurrentUser();
         textViewAmount = (TextView) view.findViewById(R.id.textViewAmount);
+        transList = view.findViewById(R.id.transactionList);
+        adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,arrayList);
+        usertype = getArguments().getString("user");
+        sid = getArguments().getString("staffId");
+
+        if(usertype.equals("Customer")){
+            transRef = database.getReference("Users").child(user.getUid()).child("Transaction");
+        }
+
+        if(usertype.equals("Staff")){
+            transRef = database.getReference("Staff").child(sid).child("Transaction");
+        }
         getWalletBalance();
+      //  displayHistory();
+
+
 
         btnTopup = (Button) view.findViewById(R.id.buttonTopUp);
         btnWithdraw = (Button) view.findViewById(R.id.buttonWithdraw);
@@ -72,8 +92,42 @@ public class eWalletFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
+//
+//    private void displayHistory() {
+//        transList.setAdapter(adapter);
+//
+//        ref.addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                String value = dataSnapshot.getValue(Transaction.class).toString();
+//                arrayList.add(value);
+//                adapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
+
     private void getWalletBalance() {
-        transRef = database.getReference("Users").child(user.getUid()).child("Transaction");
+
         final Query balanceQ = transRef.orderByKey().limitToLast(1);
 
         balanceQ.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -110,10 +164,17 @@ public class eWalletFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(v == btnTopup){
-            startActivity(new Intent(getActivity(),TopupActivity.class));
+            Intent intent = new Intent(getActivity(),TopupActivity.class);
+            intent.putExtra("user",usertype);
+            intent.putExtra("staffId",sid);
+            startActivity(intent);
+
         }
         if(v == btnWithdraw){
-            startActivity(new Intent(getActivity(),WithdrawActivity.class));
+            Intent intent = new Intent(getActivity(),TopupActivity.class);
+            intent.putExtra("user",usertype);
+            intent.putExtra("staffId",sid);
+            startActivity(intent);
         }
     }
 
